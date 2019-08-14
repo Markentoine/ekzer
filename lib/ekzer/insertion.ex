@@ -1,5 +1,5 @@
 defmodule Ekzer.Insertion do
-    alias Ekzer.{Repo, Exercice}
+    alias Ekzer.{Repo, Exercice, Keyword}
 
     import Ecto.Query
 
@@ -8,10 +8,19 @@ defmodule Ekzer.Insertion do
         exercice
     end
 
-    def associate_keywords(%Exercice{id: exercice_id}, keywords) do
+    def process_keywords(%Exercice{id: exercice_id}, keywords) do
         Enum.each(keywords, fn k -> 
-            IO.inspect(value_exists_db?("keyword", k))
+            associate_keyword(value_exists_db?("keyword", k), k)
         end)
+    end
+
+    defp associate_keyword([], kw) do
+        {:ok, keyword} = Repo.insert(%Keyword{keyword: kw})
+        keyword
+    end
+
+    defp associate_keyword(already_exists_db, kw) do
+        IO.inspect(already_exists_db)
     end
 
     defp value_exists_db?(table, v) do
