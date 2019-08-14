@@ -22,12 +22,13 @@ CREATE UNIQUE INDEX "PK_exercice" ON "exercice"
 
 -- ************************************** "objective"
 
-CREATE TABLE IF NOT EXISTS "objective"
+CREATE TABLE
+IF NOT EXISTS "objective"
 (
- "id"          bigserial NOT NULL,
- "exercice_id" bigserial NOT NULL,
- "goal"        varchar(50) NOT NULL,
- CONSTRAINT "FK_21" FOREIGN KEY ( "exercice_id" ) REFERENCES "exercice" ( "id" )
+ "id"        bigserial NOT NULL,
+ "objective" varchar
+(50) NOT NULL
+
 );
 
 CREATE UNIQUE INDEX "PK_objective" ON "objective"
@@ -35,7 +36,33 @@ CREATE UNIQUE INDEX "PK_objective" ON "objective"
  "id"
 );
 
-CREATE INDEX "fkIdx_21" ON "objective"
+-- ************************************** "exercice_objective"
+
+CREATE TABLE
+IF NOT EXISTS "exercice_objective"
+(
+ "objective_id" bigserial NOT NULL,
+ "exercice_id"  bigserial NOT NULL,
+ CONSTRAINT "FK_259" FOREIGN KEY
+( "objective_id" ) REFERENCES "objective"
+( "id" ),
+ CONSTRAINT "FK_262" FOREIGN KEY
+( "exercice_id" ) REFERENCES "exercice"
+( "id" )
+);
+
+CREATE UNIQUE INDEX "PK_exercice_objective" ON "exercice_objective"
+(
+ "objective_id",
+ "exercice_id"
+);
+
+CREATE INDEX "fkIdx_259" ON "exercice_objective"
+(
+ "objective_id"
+);
+
+CREATE INDEX "fkIdx_262" ON "exercice_objective"
 (
  "exercice_id"
 );
@@ -65,13 +92,10 @@ CREATE INDEX "fkIdx_13" ON "consigne"
 CREATE TABLE
 IF NOT EXISTS "keyword"
 (
- "id"          bigserial NOT NULL,
- "value"       varchar
-(50) NOT NULL,
- "exercice_id" bigserial NOT NULL,
- CONSTRAINT "FK_138" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
-( "id" )
+ "id"      bigserial NOT NULL,
+ "keyword" varchar
+(50) NOT NULL
+
 );
 
 CREATE UNIQUE INDEX "PK_exercice_keywords" ON "keyword"
@@ -79,9 +103,35 @@ CREATE UNIQUE INDEX "PK_exercice_keywords" ON "keyword"
  "id"
 );
 
-CREATE INDEX "fkIdx_138" ON "keyword"
+-- ************************************** "exercice_keyword"
+
+CREATE TABLE
+IF NOT EXISTS "exercice_keyword"
+(
+ "exercice_id" bigserial NOT NULL,
+ "keyword_id"  bigserial NOT NULL,
+ CONSTRAINT "FK_266" FOREIGN KEY
+( "exercice_id" ) REFERENCES "exercice"
+( "id" ),
+ CONSTRAINT "FK_270" FOREIGN KEY
+( "keyword_id" ) REFERENCES "keyword"
+( "id" )
+);
+
+CREATE UNIQUE INDEX "PK_exercice_keyword" ON "exercice_keyword"
+(
+ "exercice_id",
+ "keyword_id"
+);
+
+CREATE INDEX "fkIdx_266" ON "exercice_keyword"
 (
  "exercice_id"
+);
+
+CREATE INDEX "fkIdx_270" ON "exercice_keyword"
+(
+ "keyword_id"
 );
 
 -- ************************************** "associer"
