@@ -60,6 +60,30 @@ CREATE INDEX "fkIdx_13" ON "consigne"
  "exercice_id"
 );
 
+-- ************************************** "keyword"
+
+CREATE TABLE
+IF NOT EXISTS "keyword"
+(
+ "id"          bigserial NOT NULL,
+ "value"       varchar
+(50) NOT NULL,
+ "exercice_id" bigserial NOT NULL,
+ CONSTRAINT "FK_138" FOREIGN KEY
+( "exercice_id" ) REFERENCES "exercice"
+( "id" )
+);
+
+CREATE UNIQUE INDEX "PK_exercice_keywords" ON "keyword"
+(
+ "id"
+);
+
+CREATE INDEX "fkIdx_138" ON "keyword"
+(
+ "exercice_id"
+);
+
 -- ************************************** "associer"
 
 CREATE TABLE
