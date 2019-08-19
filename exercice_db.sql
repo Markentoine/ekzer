@@ -3,6 +3,53 @@
 -- ****************EKZER EXERCICE********************;
 -- ***************************************************;
 
+-- ************************************** "types"
+
+CREATE TABLE
+IF NOT EXISTS "types"
+(
+ "id"   bigserial NOT NULL,
+ "type" varchar
+(50) NOT NULL
+
+);
+
+CREATE UNIQUE INDEX "PK_type" ON "types"
+(
+ "id"
+);
+
+-- ************************************** "levels"
+
+CREATE TABLE
+IF NOT EXISTS "levels"
+(
+ "id"    bigserial NOT NULL,
+ "level" integer NOT NULL
+
+);
+
+CREATE UNIQUE INDEX "PK_level" ON "levels"
+(
+ "id"
+);
+
+-- ************************************** "fields"
+
+CREATE TABLE
+IF NOT EXISTS "fields"
+(
+ "id"    bigserial NOT NULL,
+ "field" varchar
+(50) NOT NULL
+
+);
+
+CREATE UNIQUE INDEX "PK_field" ON "fields"
+(
+ "id"
+);
+
 -- ************************************** "exercices"
 
 CREATE TABLE
@@ -70,7 +117,7 @@ IF NOT EXISTS "exercice_objective"
 ( "objective_id" ) REFERENCES "objectives"
 ( "id" ),
  CONSTRAINT "FK_262" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
+( "exercice_id" ) REFERENCES "exercices"
 ( "id" )
 );
 
@@ -155,53 +202,6 @@ CREATE INDEX "fkIdx_266" ON "exercice_keyword"
 CREATE INDEX "fkIdx_270" ON "exercice_keyword"
 (
  "keyword_id"
-);
-
--- ************************************** "types"
-
-CREATE TABLE
-IF NOT EXISTS "types"
-(
- "id"   bigserial NOT NULL,
- "type" varchar
-(50) NOT NULL
-
-);
-
-CREATE UNIQUE INDEX "PK_type" ON "types"
-(
- "id"
-);
-
--- ************************************** "levels"
-
-CREATE TABLE
-IF NOT EXISTS "levels"
-(
- "id"    bigserial NOT NULL,
- "level" integer NOT NULL
-
-);
-
-CREATE UNIQUE INDEX "PK_level" ON "levels"
-(
- "id"
-);
-
--- ************************************** "fields"
-
-CREATE TABLE
-IF NOT EXISTS "fields"
-(
- "id"    bigserial NOT NULL,
- "field" varchar
-(50) NOT NULL
-
-);
-
-CREATE UNIQUE INDEX "PK_field" ON "fields"
-(
- "id"
 );
 
 -- ************************************** "associer"
