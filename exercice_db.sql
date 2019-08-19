@@ -3,15 +3,12 @@
 -- ****************FRANKI EXERCICE********************;
 -- ***************************************************;
 
-
 -- ************************************** "exercice"
 
-CREATE TABLE IF NOT EXISTS "exercice"
+CREATE TABLE
+IF NOT EXISTS "exercice"
 (
- "id"    bigserial NOT NULL,
- "level" smallint NOT NULL,
- "type"  varchar(50) NOT NULL,
- "field" varchar(50) NOT NULL
+ "id" bigserial NOT NULL
 
 );
 
@@ -132,6 +129,146 @@ CREATE INDEX "fkIdx_266" ON "exercice_keyword"
 CREATE INDEX "fkIdx_270" ON "exercice_keyword"
 (
  "keyword_id"
+);
+
+-- ************************************** "type"
+
+CREATE TABLE
+IF NOT EXISTS "type"
+(
+ "id"   bigserial NOT NULL,
+ "type" varchar
+(50) NOT NULL
+
+);
+
+CREATE UNIQUE INDEX "PK_type" ON "type"
+(
+ "id"
+);
+
+-- ************************************** "exercice_type"
+
+CREATE TABLE
+IF NOT EXISTS "exercice_type"
+(
+ "exercice_id" bigserial NOT NULL,
+ "type_id"     bigserial NOT NULL,
+ CONSTRAINT "FK_284" FOREIGN KEY
+( "exercice_id" ) REFERENCES "exercice"
+( "id" ),
+ CONSTRAINT "FK_287" FOREIGN KEY
+( "type_id" ) REFERENCES "type"
+( "id" )
+);
+
+CREATE UNIQUE INDEX "PK_exercice_type" ON "exercice_type"
+(
+ "exercice_id",
+ "type_id"
+);
+
+CREATE INDEX "fkIdx_284" ON "exercice_type"
+(
+ "exercice_id"
+);
+
+CREATE INDEX "fkIdx_287" ON "exercice_type"
+(
+ "type_id"
+);
+
+-- ************************************** "level"
+
+CREATE TABLE
+IF NOT EXISTS "level"
+(
+ "id"    bigserial NOT NULL,
+ "level" integer NOT NULL
+
+);
+
+CREATE UNIQUE INDEX "PK_level" ON "level"
+(
+ "id"
+);
+
+-- ************************************** "exercice_level"
+
+CREATE TABLE
+IF NOT EXISTS "exercice_level"
+(
+ "exercice_id" bigserial NOT NULL,
+ "level_id"    bigserial NOT NULL,
+ CONSTRAINT "FK_294" FOREIGN KEY
+( "exercice_id" ) REFERENCES "exercice"
+( "id" ),
+ CONSTRAINT "FK_298" FOREIGN KEY
+( "level_id" ) REFERENCES "level"
+( "id" )
+);
+
+CREATE UNIQUE INDEX "PK_exercice_level" ON "exercice_level"
+(
+ "exercice_id",
+ "level_id"
+);
+
+CREATE INDEX "fkIdx_294" ON "exercice_level"
+(
+ "exercice_id"
+);
+
+CREATE INDEX "fkIdx_298" ON "exercice_level"
+(
+ "level_id"
+);
+
+-- ************************************** "field"
+
+CREATE TABLE
+IF NOT EXISTS "field"
+(
+ "id"    bigserial NOT NULL,
+ "field" varchar
+(50) NOT NULL
+
+);
+
+CREATE UNIQUE INDEX "PK_field" ON "field"
+(
+ "id"
+);
+
+-- ************************************** "exercice_field"
+
+CREATE TABLE
+IF NOT EXISTS "exercice_field"
+(
+ "exercice_id" bigserial NOT NULL,
+ "field_id"    bigserial NOT NULL,
+ CONSTRAINT "FK_307" FOREIGN KEY
+( "exercice_id" ) REFERENCES "exercice"
+( "id" ),
+ CONSTRAINT "FK_311" FOREIGN KEY
+( "field_id" ) REFERENCES "field"
+( "id" )
+);
+
+CREATE UNIQUE INDEX "PK_exercice_field" ON "exercice_field"
+(
+ "exercice_id",
+ "field_id"
+);
+
+CREATE INDEX "fkIdx_307" ON "exercice_field"
+(
+ "exercice_id"
+);
+
+CREATE INDEX "fkIdx_311" ON "exercice_field"
+(
+ "field_id"
 );
 
 -- ************************************** "associer"
