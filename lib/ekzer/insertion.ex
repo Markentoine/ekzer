@@ -1,5 +1,6 @@
 defmodule Ekzer.Insertion do
-    alias Ekzer.{Repo, Exercice, Keyword, ExerciceKeyword}
+    alias Ekzer.{Repo}
+    alias Ekzer.Schema.{Exercice, Keyword, ExerciceKeyword}
 
     import Ecto.Query
     import Ecto.Changeset

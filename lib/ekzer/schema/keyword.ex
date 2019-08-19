@@ -1,4 +1,4 @@
-defmodule Ekzer.Keyword do
+defmodule Ekzer.Schema.Keyword do
     use Ecto.Schema
 
     schema "keyword" do

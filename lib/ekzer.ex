@@ -1,3 +1,3 @@
 defmodule Ekzer do
-  defdelegate create(level, type, field, keywords), to: Ekzer.Interface
+  defdelegate create(params), to: Ekzer.Interface
 end
