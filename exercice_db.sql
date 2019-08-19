@@ -24,8 +24,9 @@ CREATE UNIQUE INDEX "PK_type" ON "types"
 CREATE TABLE
 IF NOT EXISTS "levels"
 (
- "id"    bigserial NOT NULL,
- "level" integer NOT NULL
+ "id"          bigserial NOT NULL,
+ "level"       integer NOT NULL,
+ "progression" integer NOT NULL
 
 );
 
@@ -555,3 +556,26 @@ CREATE INDEX "fkIdx_78" ON "quizz_reponse"
 (
  "quizz_question_id"
 );
+
+-- **** SEEDING ****
+-- **** TYPES ****
+INSERT INTO types (type)
+VALUES ('completer');
+INSERT INTO types (type)
+VALUES ('associer');
+INSERT INTO types (type)
+VALUES ('classer');
+INSERT INTO types (type)
+VALUES ('quizz');
+INSERT INTO types (type)
+VALUES ('prelever');
+
+-- **** FIELDS ****
+INSERT INTO fields (field)
+VALUES ('grammaire');
+INSERT INTO fields (field)
+VALUES ('conjugaison');
+INSERT INTO fields (field)
+VALUES ('vocabulaire');
+INSERT INTO fields (field)
+VALUES ('orthographe');
