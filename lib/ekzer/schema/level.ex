@@ -1,5 +1,5 @@
 defmodule Ekzer.Schema.Level do
-    schema "level" do
+    schema "levels" do
         field :level, :integer
     end
 end

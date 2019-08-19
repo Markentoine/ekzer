@@ -1,7 +1,7 @@
 defmodule Ekzer.Schema.Keyword do
     use Ecto.Schema
 
-    schema "keyword" do
+    schema "keywords" do
         field :keyword, :string
     end
 end

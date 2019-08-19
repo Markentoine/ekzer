@@ -1,7 +1,7 @@
 defmodule Ekzer.Schema.Type do
     use Ecto.Schema
 
-    schema "type" do
+    schema "types" do
         field :type, :string
     end
 end

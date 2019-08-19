@@ -1,26 +1,52 @@
 -- *************** SqlDBM: PostgreSQL ****************;
 -- ***************************************************;
--- ****************FRANKI EXERCICE********************;
+-- ****************EKZER EXERCICE********************;
 -- ***************************************************;
 
--- ************************************** "exercice"
+-- ************************************** "exercices"
 
 CREATE TABLE
-IF NOT EXISTS "exercice"
+IF NOT EXISTS "exercices"
 (
- "id" bigserial NOT NULL
-
+ "id"       bigserial NOT NULL,
+ "type_id"  bigserial NOT NULL,
+ "level_id" bigserial NOT NULL,
+ "field_id" bigserial NOT NULL,
+ CONSTRAINT "FK_314" FOREIGN KEY
+( "type_id" ) REFERENCES "types"
+( "id" ),
+ CONSTRAINT "FK_317" FOREIGN KEY
+( "level_id" ) REFERENCES "levels"
+( "id" ),
+ CONSTRAINT "FK_320" FOREIGN KEY
+( "field_id" ) REFERENCES "fields"
+( "id" )
 );
 
-CREATE UNIQUE INDEX "PK_exercice" ON "exercice"
+CREATE UNIQUE INDEX "PK_exercice" ON "exercices"
 (
  "id"
 );
 
--- ************************************** "objective"
+CREATE INDEX "fkIdx_314" ON "exercices"
+(
+ "type_id"
+);
+
+CREATE INDEX "fkIdx_317" ON "exercices"
+(
+ "level_id"
+);
+
+CREATE INDEX "fkIdx_320" ON "exercices"
+(
+ "field_id"
+);
+
+-- ************************************** "objectives"
 
 CREATE TABLE
-IF NOT EXISTS "objective"
+IF NOT EXISTS "objectives"
 (
  "id"        bigserial NOT NULL,
  "objective" varchar
@@ -28,7 +54,7 @@ IF NOT EXISTS "objective"
 
 );
 
-CREATE UNIQUE INDEX "PK_objective" ON "objective"
+CREATE UNIQUE INDEX "PK_objective" ON "objectives"
 (
  "id"
 );
@@ -41,7 +67,7 @@ IF NOT EXISTS "exercice_objective"
  "objective_id" bigserial NOT NULL,
  "exercice_id"  bigserial NOT NULL,
  CONSTRAINT "FK_259" FOREIGN KEY
-( "objective_id" ) REFERENCES "objective"
+( "objective_id" ) REFERENCES "objectives"
 ( "id" ),
  CONSTRAINT "FK_262" FOREIGN KEY
 ( "exercice_id" ) REFERENCES "exercice"
@@ -64,30 +90,30 @@ CREATE INDEX "fkIdx_262" ON "exercice_objective"
  "exercice_id"
 );
 
--- ************************************** "consigne"
+-- ************************************** "consignes"
 
-CREATE TABLE IF NOT EXISTS "consigne"
+CREATE TABLE IF NOT EXISTS "consignes"
 (
  "id"          bigserial NOT NULL,
  "french"      text NOT NULL,
  "exercice_id" bigserial NOT NULL,
- CONSTRAINT "FK_13" FOREIGN KEY ( "exercice_id" ) REFERENCES "exercice" ( "id" )
+ CONSTRAINT "FK_13" FOREIGN KEY ( "exercice_id" ) REFERENCES "exercices" ( "id" )
 );
 
-CREATE UNIQUE INDEX "PK_consigne" ON "consigne"
+CREATE UNIQUE INDEX "PK_consigne" ON "consignes"
 (
  "id"
 );
 
-CREATE INDEX "fkIdx_13" ON "consigne"
+CREATE INDEX "fkIdx_13" ON "consignes"
 (
  "exercice_id"
 );
 
--- ************************************** "keyword"
+-- ************************************** "keywords"
 
 CREATE TABLE
-IF NOT EXISTS "keyword"
+IF NOT EXISTS "keywords"
 (
  "id"      bigserial NOT NULL,
  "keyword" varchar
@@ -95,7 +121,7 @@ IF NOT EXISTS "keyword"
 
 );
 
-CREATE UNIQUE INDEX "PK_exercice_keywords" ON "keyword"
+CREATE UNIQUE INDEX "PK_exercice_keywords" ON "keywords"
 (
  "id"
 );
@@ -108,10 +134,10 @@ IF NOT EXISTS "exercice_keyword"
  "exercice_id" bigserial NOT NULL,
  "keyword_id"  bigserial NOT NULL,
  CONSTRAINT "FK_266" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
+( "exercice_id" ) REFERENCES "exercices"
 ( "id" ),
  CONSTRAINT "FK_270" FOREIGN KEY
-( "keyword_id" ) REFERENCES "keyword"
+( "keyword_id" ) REFERENCES "keywords"
 ( "id" )
 );
 
@@ -131,10 +157,10 @@ CREATE INDEX "fkIdx_270" ON "exercice_keyword"
  "keyword_id"
 );
 
--- ************************************** "type"
+-- ************************************** "types"
 
 CREATE TABLE
-IF NOT EXISTS "type"
+IF NOT EXISTS "types"
 (
  "id"   bigserial NOT NULL,
  "type" varchar
@@ -142,92 +168,30 @@ IF NOT EXISTS "type"
 
 );
 
-CREATE UNIQUE INDEX "PK_type" ON "type"
+CREATE UNIQUE INDEX "PK_type" ON "types"
 (
  "id"
 );
 
--- ************************************** "exercice_type"
+-- ************************************** "levels"
 
 CREATE TABLE
-IF NOT EXISTS "exercice_type"
-(
- "exercice_id" bigserial NOT NULL,
- "type_id"     bigserial NOT NULL,
- CONSTRAINT "FK_284" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
-( "id" ),
- CONSTRAINT "FK_287" FOREIGN KEY
-( "type_id" ) REFERENCES "type"
-( "id" )
-);
-
-CREATE UNIQUE INDEX "PK_exercice_type" ON "exercice_type"
-(
- "exercice_id",
- "type_id"
-);
-
-CREATE INDEX "fkIdx_284" ON "exercice_type"
-(
- "exercice_id"
-);
-
-CREATE INDEX "fkIdx_287" ON "exercice_type"
-(
- "type_id"
-);
-
--- ************************************** "level"
-
-CREATE TABLE
-IF NOT EXISTS "level"
+IF NOT EXISTS "levels"
 (
  "id"    bigserial NOT NULL,
  "level" integer NOT NULL
 
 );
 
-CREATE UNIQUE INDEX "PK_level" ON "level"
+CREATE UNIQUE INDEX "PK_level" ON "levels"
 (
  "id"
 );
 
--- ************************************** "exercice_level"
+-- ************************************** "fields"
 
 CREATE TABLE
-IF NOT EXISTS "exercice_level"
-(
- "exercice_id" bigserial NOT NULL,
- "level_id"    bigserial NOT NULL,
- CONSTRAINT "FK_294" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
-( "id" ),
- CONSTRAINT "FK_298" FOREIGN KEY
-( "level_id" ) REFERENCES "level"
-( "id" )
-);
-
-CREATE UNIQUE INDEX "PK_exercice_level" ON "exercice_level"
-(
- "exercice_id",
- "level_id"
-);
-
-CREATE INDEX "fkIdx_294" ON "exercice_level"
-(
- "exercice_id"
-);
-
-CREATE INDEX "fkIdx_298" ON "exercice_level"
-(
- "level_id"
-);
-
--- ************************************** "field"
-
-CREATE TABLE
-IF NOT EXISTS "field"
+IF NOT EXISTS "fields"
 (
  "id"    bigserial NOT NULL,
  "field" varchar
@@ -235,40 +199,9 @@ IF NOT EXISTS "field"
 
 );
 
-CREATE UNIQUE INDEX "PK_field" ON "field"
+CREATE UNIQUE INDEX "PK_field" ON "fields"
 (
  "id"
-);
-
--- ************************************** "exercice_field"
-
-CREATE TABLE
-IF NOT EXISTS "exercice_field"
-(
- "exercice_id" bigserial NOT NULL,
- "field_id"    bigserial NOT NULL,
- CONSTRAINT "FK_307" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
-( "id" ),
- CONSTRAINT "FK_311" FOREIGN KEY
-( "field_id" ) REFERENCES "field"
-( "id" )
-);
-
-CREATE UNIQUE INDEX "PK_exercice_field" ON "exercice_field"
-(
- "exercice_id",
- "field_id"
-);
-
-CREATE INDEX "fkIdx_307" ON "exercice_field"
-(
- "exercice_id"
-);
-
-CREATE INDEX "fkIdx_311" ON "exercice_field"
-(
- "field_id"
 );
 
 -- ************************************** "associer"
@@ -279,7 +212,7 @@ IF NOT EXISTS "associer"
  "id"          bigserial NOT NULL,
  "exercice_id" bigserial NOT NULL,
  CONSTRAINT "FK_93" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
+( "exercice_id" ) REFERENCES "exercices"
 ( "id" )
 );
 
@@ -357,7 +290,7 @@ IF NOT EXISTS "classer"
  "nb_columns"  int NOT NULL,
  "exercice_id" bigserial NOT NULL,
  CONSTRAINT "FK_50" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
+( "exercice_id" ) REFERENCES "exercices"
 ( "id" )
 );
 
@@ -379,7 +312,7 @@ IF NOT EXISTS "completer"
  "id"          bigserial NOT NULL,
  "exercice_id" bigserial NOT NULL,
  CONSTRAINT "FK_29" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
+( "exercice_id" ) REFERENCES "exercices"
 ( "id" )
 );
 
@@ -472,7 +405,7 @@ IF NOT EXISTS "prelever"
  "id"          bigserial NOT NULL,
  "exercice_id" bigserial NOT NULL,
  CONSTRAINT "FK_117" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
+( "exercice_id" ) REFERENCES "exercices"
 ( "id" )
 );
 
@@ -540,7 +473,7 @@ IF NOT EXISTS "quizz"
  "id"          bigserial NOT NULL,
  "exercice_id" bigserial NOT NULL,
  CONSTRAINT "FK_64" FOREIGN KEY
-( "exercice_id" ) REFERENCES "exercice"
+( "exercice_id" ) REFERENCES "exercices"
 ( "id" )
 );
 

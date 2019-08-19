@@ -1,5 +1,5 @@
 defmodule Ekzer.Schema.Objective do
-    schema "objective" do
+    schema "objectives" do
         field :objective, :string
     end
 end
