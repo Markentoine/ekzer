@@ -1,8 +1,8 @@
 defmodule Ekzer.Interface do
-    alias Ekzer.{Insertion}
+  alias Ekzer.{Insertion}
 
-    def create(%{level: level, type: type, field: field, keywords: keywords}) do
-        Insertion.create_exercise(level, type, field)
-        |> Insertion.process_keywords(keywords)
-    end
+  def create(params) do
+    Insertion.exercise(params)
+    # |> Insertion.process_keywords(keywords)
+  end
 end

@@ -1,9 +1,9 @@
 defmodule Ekzer.Schema.Type do
-    use Ecto.Schema
+  use Ecto.Schema
 
-    schema "types" do
-        field :type, :string
+  schema "types" do
+    field(:type, :string)
 
-        has_many :exercices, Ekzer.Schema.Exercice
-    end
+    has_many(:exercices, Ekzer.Schema.Exercice)
+  end
 end
